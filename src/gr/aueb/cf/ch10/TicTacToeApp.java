@@ -20,6 +20,8 @@ public class TicTacToeApp {
             if (gridUpdated) {
                 if (checkWinner()) {
                     isPlaying = false;
+                } else if (countPlays == 9) {
+                    isPlaying = false;
                 } else {
                     switchPlayer();
                 }
@@ -40,13 +42,9 @@ public class TicTacToeApp {
                 return true;
             }
         }
-        if ((grid[0] == currentPlayer && grid[4] == currentPlayer && grid[8] == currentPlayer) ||
-                (grid[2] == currentPlayer && grid[4] == currentPlayer && grid[6] == currentPlayer)) {
-            return true;
-        }
-        return countPlays == 9;
+        return (grid[0] == currentPlayer && grid[4] == currentPlayer && grid[8] == currentPlayer) ||
+                (grid[2] == currentPlayer && grid[4] == currentPlayer && grid[6] == currentPlayer);
     }
-
 
     public static void showGrid() {
         System.out.println("\t|------------|");
@@ -89,13 +87,12 @@ public class TicTacToeApp {
 
     public static void announceResults() {
         System.out.println("[~][~][~][~][~][~][~][~][~][~]");
-        if (countPlays == 9) {
+        if (countPlays == 9 && !checkWinner()) {
             System.out.println("\tIt's a draw!");
-            showGrid();
         } else {
             System.out.println("\tPlayer " + currentPlayer + " wins!");
-            showGrid();
         }
+        showGrid();
         System.out.println("[~][~][~][~][~][~][~][~][~][~]");
     }
 
